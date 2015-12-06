@@ -118,15 +118,18 @@ class Two_Factor_FIDO_U2F_Admin {
 		?>
 		<div class="security-keys" id="security-keys-section">
 			<h3><?php esc_html_e( 'Security Keys' ); ?></h3>
-			<p><?php esc_html_e( 'FIDO U2F is only supported in Chrome 41+.' ); ?></p>
+			<p><?php esc_html_e( 'FIDO U2F is only supported in Chrome 41+ and your site must be using HTTPS (secured by TLS).' ); ?></p>
 			<p><a href="https://support.google.com/accounts/answer/6103523"><?php esc_html_e( 'You can find FIDO U2F Security Key devices for sale from here.' ); ?></a></p>
+			<p><a href="https://letsencrypt.org/"><?php esc_html_e( 'You can secure your WordPress with Let\'s Encrypt.' ); ?></a></p>
 			<div class="register-security-key">
-				<?php if ( Two_Factor_FIDO_U2F::is_browser_support() ) : ?>
+				<?php if ( ! is_ssl() ) : ?>
+				<p><?php esc_html_e( 'Your site must be using HTTPS to use FIDO U2F.' ); ?></p>
+				<?php else if ( ! Two_Factor_FIDO_U2F::is_browser_support() ) : ?>
+				<p><?php esc_html_e( 'Your browser doesn\'t support FIDO U2F.' ); ?></p>
+				<?php else : ?>
 				<input type="hidden" name="do_new_security_key" id="do_new_security_key" />
 				<input type="hidden" name="u2f_response" id="u2f_response" />
 				<button type="button" class="button button-secondary" id="register_security_key"><?php esc_html_e( 'Add New' ); ?></button>
-				<?php else : ?>
-				<p><?php esc_html_e( 'Your browser doesn\'t support FIDO U2F.' ); ?></p>
 				<?php endif; ?>
 			</div>
 
