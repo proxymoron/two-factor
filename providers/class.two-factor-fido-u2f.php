@@ -86,7 +86,7 @@ class Two_Factor_FIDO_U2F extends Two_Factor_Provider {
 			return;
 		}
 
-		wp_enqueue_script( 'u2f-api',        plugins_url( 'includes/Google/u2f-api.js', dirname( __FILE__ ) ), null, null, true );
+		wp_enqueue_script( 'u2f-api',        plugins_url( 'includes/Google/u2f-api.js', dirname( __FILE__ ) ), array( 'jquery' ), null, true );
 		wp_enqueue_script( 'fido-u2f-login', plugins_url( 'js/fido-u2f-login.js', __FILE__ ), array( 'jquery', 'u2f-api' ), null, true );
 	}
 
