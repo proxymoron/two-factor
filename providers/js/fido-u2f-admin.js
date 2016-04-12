@@ -10,13 +10,17 @@
 		}
 
 		setTimeout( function() {
-			window.console.log( 'sign', u2fL10n.register.request );
+			window.console.log( 'register', u2fL10n.register );
 
 			$button.text( u2fL10n.text.insert ).append( '<span class="spinner is-active" />' );
 
 			$( '.spinner.is-active', $button ).css( 'margin', '2.5px 0px 0px 5px' );
 
-			u2f.register( [ u2fL10n.register.request ], u2fL10n.register.sigs, function( data ) {
+			u2f.register(
+				u2fL10n.register.appId,
+				[u2fL10n.register.registerRequests],
+				u2fL10n.register.registeredKeys,
+				function( data ) {
 				window.console.log( 'Register callback', data, this );
 
 				if ( data.errorCode ) {

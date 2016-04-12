@@ -60,18 +60,13 @@ class Two_Factor_FIDO_U2F_Admin {
 
 		try {
 			$data = Two_Factor_FIDO_U2F::$u2f->getRegisterData( $security_keys );
-			list( $req,$sigs ) = $data;
-
-			update_user_meta( $user_id, self::REGISTER_DATA_USER_META_KEY, $req );
+			update_user_meta( $user_id, self::REGISTER_DATA_USER_META_KEY, $data->registerRequests );
 		} catch ( Exception $e ) {
 			return false;
 		}
 
 		$translation_array = array(
-			'register' => array(
-				'request' => $req,
-				'sigs' => $sigs,
-			),
+			'register' => $data,
 			'text' => array(
 				'insert' => esc_html__( 'Now insert (and tap) your Security Key.' ),
 				'error' => esc_html__( 'Failed...' ),
